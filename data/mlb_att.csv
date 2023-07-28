@@ -1,0 +1,31 @@
+Tm,Tm Abbv,RANK,STADIUM,HOME TEAM,CAPACITY,Attendance,Attend/G,BatAge,PAge,BPF,PPF,#HOF,#A-S,#a-tA-S,Est. Payroll,Time,Chall,Succ,Succ%,Managers,perc_full
+Oakland Athletics,OAK,1,Oakland Coliseum,Oakland Athletics,56782,544138,10077,27.9,28.2,93,95,0,1,5,"$51,230,000",2:45,22,8,36%,Kotsay,0.177468211757247
+Los Angeles Dodgers,LAD,2,Dodger Stadium,Los Angeles Dodgers,56000,2216763,48191,30.7,27.8,104,101,0,5,11,"$199,591,667",2:43,24,10,41%,Roberts,0.8605535714285715
+Colorado Rockies,COL,3,Coors Field,Colorado Rockies,50144,1583337,32313,28.9,29.9,113,115,0,1,7,"$149,145,682",2:39,26,13,50%,Black,0.644404116145501
+Toronto Blue Jays,TOR,4,Rogers Centre,Toronto Blue Jays,49282,1725640,36716,28.9,30.4,98,98,0,5,14,"$204,440,269",2:44,31,9,29%,Schneider,0.7450184651596932
+Arizona Diamondbacks,ARI,5,Chase Field,Arizona Diamondbacks,48405,1140029,22354,27.2,28.5,97,97,0,4,8,"$116,347,571",2:43,27,17,62%,Lovullo,0.4618117963020349
+Seattle Mariners,SEA,6,T-Mobile Park,Seattle Mariners,47929,1614102,29891,27.8,27.9,96,96,0,3,9,"$116,869,948",2:40,20,10,50%,Servais,0.6236516514010307
+New York Yankees,NYY,7,Yankee Stadium,New York Yankees,46537,2186424,40489,29.1,29.1,100,99,0,2,12,"$270,202,722",2:40,18,11,61%,Boone,0.8700388937834411
+Baltimore Orioles,BAL,8,Oriole Park at Camden Yards,Baltimore Orioles,45971,1071476,21430,27.4,28.5,98,98,0,4,8,"$71,972,400",2:46,24,10,41%,Hyde,0.4661634508712014
+Los Angeles Angels,LAA,9,Angel Stadium,Los Angeles Angels,45517,1749126,33637,28.9,28.1,104,104,0,3,11,"$234,537,055",2:44,16,5,31%,Nevin,0.738998615901751
+St. Louis Cardinals,STL,10,Busch Stadium,St. Louis Cardinals,45494,1977037,41188,27.7,29.8,99,98,0,1,7,"$183,253,116",2:44,27,13,48%,Marmol,0.905350156064536
+Philadelphia Phillies,PHI,11,Citizens Bank Park,Philadelphia Phillies,42792,1813778,39430,28.6,29.7,98,98,0,2,11,"$241,362,606",2:43,22,11,50%,Thomson,0.9214339128809124
+Tampa Bay Rays,TBR,12,Tropicana Field,Tampa Bay Rays,42735,980826,18163,26.9,28.2,98,96,0,4,5,"$76,441,212",2:35,33,15,45%,Cash,0.425014625014625
+Cincinnati Reds,CIN,13,Great American Ball Park,Cincinnati Reds,42319,1282593,23752,27.1,27.8,107,108,0,1,3,"$89,263,548",2:45,35,15,42%,Bell,0.5612608993596258
+New York Mets,NYM,14,Citi Field,New York Mets,41922,1507461,33499,29.6,32.8,95,94,0,2,13,"$302,094,010",2:43,20,5,25%,Showalter,0.7990792424025571
+San Francisco Giants,SFG,15,Oracle Park,San Francisco Giants,41915,1459664,30410,28.7,30.4,98,98,0,2,9,"$155,953,750",2:39,35,21,60%,Kapler,0.7255159250864845
+Milwaukee Brewers,MIL,16,American Family Field,Milwaukee Brewers,41900,1557929,30548,27.3,29.3,99,99,0,2,9,"$118,288,760",2:40,16,6,37%,Counsell,0.7290692124105012
+Chicago Cubs,CHC,17,Wrigley Field,Chicago Cubs,41649,1789018,33755,28.5,30.0,102,102,0,3,9,"$162,918,250",2:42,29,14,48%,Ross,0.8104636365819108
+Washington Nationals,WSN,18,Nationals Park,Washington Nationals,41339,1117360,21909,27.0,28.4,93,95,0,1,3,"$99,211,578",2:39,20,16,80%,Martinez,0.5299837925445705
+Houston Astros,HOU,19,Minute Maid Park,Houston Astros,41168,1800890,37519,28.6,28.7,101,99,0,3,7,"$189,055,433",2:41,16,11,68%,Baker,0.9113631947143412
+Atlanta Braves,ATL,20,Truist Park,Atlanta Braves,41084,2006604,39345,27.9,29.9,106,103,0,8,15,"$181,197,500",2:39,12,6,50%,Snitker,0.9576720864570148
+Detroit Tigers,DET,21,Comerica Park,Detroit Tigers,41083,957459,19540,27.6,28.2,99,101,0,1,5,"$119,236,836",2:37,21,6,28%,Hinch,0.4756225202638561
+Chicago White Sox,CHW,22,Guaranteed Rate Field,Chicago White Sox,40615,920949,20021,27.9,29.6,102,103,0,1,9,"$157,925,951",2:42,28,10,35%,Grifol,0.492945955927613
+Texas Rangers,TEX,23,Globe Life Field,Texas Rangers,40300,1656463,30675,28.3,30.2,102,102,0,6,10,"$205,204,534",2:38,23,9,39%,Bochy,0.761166253101737
+San Diego Padres,SDP,24,Petco Park,San Diego Padres,40209,1981607,40441,28.8,30.5,93,93,0,2,14,"$236,300,139",2:46,23,7,30%,Melvin,1.00576985252058
+Pittsburgh Pirates,PIT,25,PNC Park,Pittsburgh Pirates,38747,988896,20182,28.1,28.4,100,102,0,2,5,"$72,407,500",2:37,27,9,33%,Shelton,0.5208661315714765
+Minnesota Twins,MIN,26,Target Field,Minnesota Twins,38544,1242216,23889,28.6,28.5,101,101,0,2,7,"$137,798,640",2:39,17,5,29%,Baldelli,0.6197851805728518
+Kansas City Royals,KCR,27,Kauffman Stadium,Kansas City Royals,37903,831559,16305,26.4,29.8,101,102,0,1,4,"$90,936,975",2:35,17,9,52%,Quatraro,0.43017703084188585
+Boston Red Sox,BOS,28,Fenway Park,Boston Red Sox,37755,1654705,32445,28.8,30.5,109,109,0,1,6,"$184,782,500",2:42,12,6,50%,Cora,0.8593563766388558
+Miami Marlins,MIA,29,LoanDepot Park,Miami Marlins,37442,649210,12730,29.8,27.3,98,99,0,2,11,"$97,851,500",2:37,17,15,88%,Schumaker,0.3399925217669996
+Cleveland Guardians,CLE,30,Progressive Field,Cleveland Guardians,34830,1112602,22252,26.8,26.1,98,97,0,2,6,"$86,614,729",2:37,28,16,57%,Francona,0.6388745334481769
