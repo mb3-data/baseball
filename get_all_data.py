@@ -9,12 +9,15 @@ script will get all data and create a csv called schedule_results
 
 import pandas as pd
 import numpy as np
+import os
+
+dirname = os.path.dirname(__file__)
 
 def get_sched_results():
-    a = pd.read_csv(rf'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\al.csv')
-    n = pd.read_csv(rf'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\nl.csv')
+    a = pd.read_csv(os.path.join(dirname, rf'data\al.csv'))
+    n = pd.read_csv(os.path.join(dirname, rf'data\nl.csv'))
     l = pd.concat([a,n])
-    l.to_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\mlb_standings.csv', index=False)
+    l.to_csv(os.path.join(dirname, r'data\mlb_standings.csv', index=False))
     # t_list = l['AL'].to_list()
     df = pd.DataFrame()
     for index, row in l.iterrows():
@@ -34,7 +37,7 @@ def get_sched_results():
     b = a[a['Gm#']!='Gm#']
     df = b
     df['Division'] = df['League'] + ' ' + df['Division']
-    df.to_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\schedule_results.csv', index=False)
+    df.to_csv(os.path.join(dirname, r'data\schedule_results.csv', index=False))
 
 def get_teams():
     c = pd.read_html('https://www.baseball-reference.com/')
@@ -62,7 +65,7 @@ def get_teams():
               'SRS',
               'Division',
               'League']]
-    div.to_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\al.csv', index=False)
+    div.to_csv(os.path.join(dirname, r'data\al.csv', index=False))
     
     div = g.copy()
     div = div[div['NL'].notnull()]
@@ -84,23 +87,23 @@ def get_teams():
               'SRS',
               'Division',
               'League']]
-    div.to_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\nl.csv', index=False)
+    div.to_csv(os.path.join(dirname, r'data\nl.csv', index=False))
 
 def get_attendance():
     c = pd.read_html('https://www.baseball-reference.com/leagues/majors/2023-misc.shtml')
     d = pd.concat(c)
-    cap = pd.read_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\mlb_cap.csv')
-    tm_abbv = pd.read_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\tm_abbv.csv')
+    cap = pd.read_csv(os.path.join(dirname, r'data\mlb_cap.csv'))
+    tm_abbv = pd.read_csv(os.path.join(dirname, r'data\tm_abbv.csv'))
     d = pd.merge(cap, d, how='inner', on=['Tm'])
     d = pd.merge(tm_abbv, d, how='inner', on=['Tm'])
     d['perc_full'] = d['Attend/G'] / d['CAPACITY']
-    d.to_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\mlb_att.csv', index=False)
+    d.to_csv(os.path.join(dirname, r'data\mlb_att.csv', index=False))
 
 def get_capacity():
     c = pd.read_html('https://sports.betmgm.com/en/blog/mlb/biggest-mlb-stadiums-ranking-by-capacity-bm15/')
     d = pd.concat(c)
     d['Tm'] = d['HOME TEAM']
-    d.to_csv(r'C:\Users\berar\Documents\Projects\visualization_demo\mlb_cap.csv', index=False)
+    d.to_csv(os.path.join(dirname, r'data\mlb_cap.csv', index=False))
 
 
 
