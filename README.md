@@ -6,10 +6,8 @@ If there are any issues with any of the data or files located within this reposi
 Thanks - Matt
 
 ## Sources
-##### Records and seasonal information
-https://www.baseball-reference.com/teams
-##### Stadium Seating Capacity
-https://sports.betmgm.com/en/blog/mlb/biggest-mlb-stadiums-ranking-by-capacity-bm15/
+- Records and seasonal information: https://www.baseball-reference.com/teams
+- Stadium Seating Capacity: https://sports.betmgm.com/en/blog/mlb/biggest-mlb-stadiums-ranking-by-capacity-bm15/
 
 # Updates:
 7/28/2023
