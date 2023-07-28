@@ -22,6 +22,9 @@ import dash_html_components as html
 from plotly.offline import plot
 from dash.dependencies import Input, Output, State
 import plotly.express as px
+import os
+
+dirname = os.path.dirname(__file__)
 
 # a = pd.read_html('https://www.baseball-reference.com/teams/CLE/2023-schedule-scores.shtml')
 # a = pd.concat(a)
@@ -29,13 +32,13 @@ import plotly.express as px
 # b = a[a['Gm#']!='Gm#']
 
 def get_standings():
-    filename = r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\mlb_standings.csv'
+    filename = os.path.join(dirname, r'data\mlb_standings.csv')
     df = pd.read_csv(filename)
     df['Division'] = df['League'] + ' ' + df['Division']
     return df
 
 def get_data_results():
-    filename = r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\schedule_results.csv'
+    filename = os.path.join(dirname, r'data\schedule_results.csv')
     df = pd.read_csv(filename)
     # Need to accumulate wins and losses
     df['W'] = np.where(df['W/L']=='W',1,0)
@@ -77,12 +80,12 @@ def plot_wins():
     return df
 
 def get_attendance():
-    filename = r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\mlb_att.csv'
+    filename = os.path.join(dirname, r'data\mlb_att.csv')
     df = pd.read_csv(filename)
     return df
 
 def get_population():
-    filename = r'C:\Users\berar\Documents\Projects\visualization_demo\baseball\data\tm_pop.csv'
+    filename = os.path.join(dirname, r'data\tm_pop.csv')
     df = pd.read_csv(filename)
     df = df[df['Radius']==25]
     return df
@@ -460,5 +463,3 @@ def display_table(input_value):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-                                 
-
