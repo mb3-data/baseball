@@ -1,28 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 24 20:41:16 2023
+Created on Sat Jul 29 08:24:00 2023
 
 @author: berar
 
-Graph the AL West Race by day
-Data Source
-https://www.baseball-reference.com/teams
-Schedule/results
-
+This page reference is adapted from dash plotly documentation:
+https://dash.plotly.com/urls
 """
 
-import pandas as pd
-import numpy as np
 import dash
-import requests
-import io
-import dash_table
-import dash_core_components as dcc
-import dash_html_components as html
-from plotly.offline import plot
-from dash.dependencies import Input, Output, State
-import plotly.express as px
+import numpy as np
 import os
+import pandas as pd
+import plotly.express as px
+from dash import html, dcc, callback, Input, Output, dash_table
 
 dirname = os.path.dirname(__file__)
 
@@ -90,8 +81,6 @@ def get_population():
     df = df[df['Radius']==25]
     return df
 
-# df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder_unfiltered.csv')
-
 df = get_data_results()
 dates = day_of_season()
 date_max = dates['idx'].max()
@@ -103,7 +92,7 @@ att = att.drop('Tm', axis=1)
 att = pd.merge(standings, att, how='inner', left_on=['Tm'], right_on=['Tm Abbv'])
 att = pd.merge(att, pop, how='inner', on=['Tm Abbv'])
 
-fig = px.line(
+fig1 = px.line(
     wins,
     y="WL_perc",
     x="Date",
@@ -111,6 +100,7 @@ fig = px.line(
     color='Tm',
     color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
     hover_name='Tm',
+    width=800
     )
 
 fig2 = px.line(
@@ -206,13 +196,31 @@ fig9 = px.scatter(
     hover_data=['Tm'],
     )
 
-app  = dash.Dash()
+dash.register_page(__name__)
 
-app.layout = html.Div([
+# layout = html.Div(children=[
+#     html.H1(children='This is our Analytics page'),
+# 	html.Div([
+#         "Select a city: ",
+#         dcc.RadioItems(['New York City', 'Montreal','San Francisco'],
+#         'Montreal',
+#         id='analytics-input')
+#     ]),
+# 	html.Br(),
+#     html.Div(id='analytics-output'),
+# ])
+
+layout = html.Div([
     
     
     html.H1(
         children='Baseline', style={'textAlign':'center'}
+        ),
+    html.Div(
+        [
+        '''The First Objective is to plot the current season and the 
+        performance of all teams by division.'''
+        ]
         ),
     
     dcc.Slider(
@@ -264,26 +272,40 @@ app.layout = html.Div([
                     ),
             ], style={'display': 'flex', 'flex-direction': 'column'}
             ),
-            html.Div(
-                [dcc.Graph(id='Win-Loss Percentage', figure=fig,
-                           config={'displayModeBar': False})
-                 ],
-                className='chart'),
-            html.Div(
-                [dcc.Graph(id='Cumulative Wins', figure=fig2,
-                           config={'displayModeBar': False})
-                 ],
-                className='chart2'),
-            html.Div(
-                [dcc.Graph(id='Run Differential', figure=fig3,
-                           config={'displayModeBar': False})
-                 ],
-                className='chart3'),
+            html.Div(children=[
+                dcc.Dropdown(
+                    id='graph1-dropdown',
+                    options=[
+                        {'label': s, 'value': s} for s in ['Win-Loss Percentage',
+                                                           'Cumulative Wins',
+                                                           'Run Differential']
+                        ],
+                    value = 'Win-Loss Percentage',
+                    ),
+                html.Div(
+                    [dcc.Graph(id='Win-Loss Percentage', figure=fig1,
+                               config={'displayModeBar': False})
+                     ],
+                    className='chart'),
+            ], style={'display': 'flex', 'flex-direction': 'column', 'flex-width': '90%'}
+            ), 
             ], style={'display': 'flex', 'flex-direction': 'row'}
         ),
         
         ], style={'display': 'flex', 'flex-direction': 'row'}
         ),
+    html.Div([
+        '''The second dimension I wanted to look at was the ability for a teams
+        business office to fill its stadium based on some other factors such as 
+        population surrounding the stadium, wins in the season, and estimated 
+        payroll as well as the capacity of the stadium itself. These factors 
+        may indicate a correlation. For example, an organizations ability to
+        fill the stadium may be associated to the estimated payroll, but without
+        further analysis, it may be unclear whether the ability to fill the 
+        stadium is a result of payroll or the estimated payroll is a result of
+        the ability to fill the stadium
+        '''
+        ]),
     html.Div([
         html.Div(
             [dcc.Graph(id='Attendance Per Payroll', figure=fig4,
@@ -324,137 +346,70 @@ app.layout = html.Div([
     )
 
 
-@app.callback(
+@callback(
     Output(component_id='Win-Loss Percentage', component_property='figure'),
+    Input(component_id='graph1-dropdown', component_property='value'),
     Input(component_id='status-dropdown', component_property='value'),
     Input(component_id='day-slider', component_property='value')
     )
-def update_chart(input_value, date_input):
+def update_chart(graph1_value, input_value, date_input):
+    
     dates = day_of_season()
     print(date_input)
     dates = dates[dates['idx']<date_input]
     df = plot_wins()
     df = pd.merge(dates, df, how='inner', left_on=[0], right_on=['Date'])
     df = df[df['Division']==input_value]
-    fig = px.line(
-        df,
-        y="WL_perc",
-        x="Date",
-        title='Win-Loss Percentage',
-        color='Tm',
-        color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
-        hover_name='Tm',
+    if graph1_value == 'Win-Loss Percentage':
+        fig = px.line(
+            df,
+            y="WL_perc",
+            x="Date",
+            title='Win-Loss Percentage',
+            color='Tm',
+            color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
+            hover_name='Tm',
+            width=800
+            )
+        fig.update_yaxes(title='Percent')
+        fig.update_xaxes(title=None)
+        fig.update_layout(
+        plot_bgcolor='white'
         )
-    fig.update_yaxes(title='Percent')
-    fig.update_xaxes(title=None)
-    fig.update_layout(
-    plot_bgcolor='white'
-    )
+    elif graph1_value =='Cumulative Wins':
+        fig = px.line(
+            df,
+            y="cum_W",
+            x="Date",
+            title='Cumulative Wins',
+            color='Tm',
+            color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
+            hover_name='Tm',
+            )
+        fig.update_yaxes(title='Wins')
+        fig.update_xaxes(title=None)
+        fig.update_layout(
+        plot_bgcolor='white'
+        )
+    else:
+        fig = px.line(
+            df,
+            y="run_diff",
+            x="Date",
+            title='Run Differential',
+            color='Tm',
+            color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
+            hover_name='Tm',
+            )
+        fig.update_yaxes(title='Runs', visible=True, showticklabels=True)
+        fig.update_xaxes(title=None)
+        fig.update_layout(
+        plot_bgcolor='white'
+        )
     return fig
 
-@app.callback(
-    Output(component_id='Cumulative Wins', component_property='figure'),
-    Input(component_id='status-dropdown', component_property='value'),
-    Input(component_id='day-slider', component_property='value')
-    )
-def update_chart2(input_value, date_input):
-    dates = day_of_season()
-    print(date_input)
-    dates = dates[dates['idx']<date_input]
-    df = plot_wins()
-    df = pd.merge(dates, df, how='inner', left_on=[0], right_on=['Date'])
-    df = df[df['Division']==input_value]
-    fig = px.line(
-        df,
-        y="cum_W",
-        x="Date",
-        title='Cumulative Wins',
-        color='Tm',
-        color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
-        hover_name='Tm',
-        )
-    fig.update_yaxes(title='Wins')
-    fig.update_xaxes(title=None)
-    fig.update_layout(
-    plot_bgcolor='white'
-    )
-    return fig
 
-@app.callback(
-    Output(component_id='Run Differential', component_property='figure'),
-    Input(component_id='status-dropdown', component_property='value'),
-    Input(component_id='day-slider', component_property='value')
-    )
-def update_chart3(input_value, date_input):
-    dates = day_of_season()
-    print(date_input)
-    dates = dates[dates['idx']<date_input]
-    df = plot_wins()
-    df = pd.merge(dates, df, how='inner', left_on=[0], right_on=['Date'])
-    df = df[df['Division']==input_value]
-    # animations = {
-    #     px.line(
-    #         df, x='Date', y='run_diff',
-    #         animation_frame='Date',
-    #         animation_group='Tm', color='Tm',
-    #         hover_name='Tm'
-    #         )
-    #     }
-    # return animations
-    fig = px.line(
-        df,
-        y="run_diff",
-        x="Date",
-        title='Run Differential',
-        color='Tm',
-        color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
-        hover_name='Tm',
-        )
-    fig.update_yaxes(title='Runs', visible=True, showticklabels=True)
-    fig.update_xaxes(title=None)
-    fig.update_layout(
-    plot_bgcolor='white'
-    )
-    return fig
-
-# @app.callback(
-#     Output(component_id='Run Differential', component_property='figure'),
-#     Input(component_id='status-dropdown', component_property='value'),
-#     Input(component_id='day-slider', component_property='value')
-#     )
-# def update_chart4(input_value, date_input):
-#     dates = day_of_season()
-#     print(date_input)
-#     dates = dates[dates['idx']<date_input]
-#     df = plot_wins()
-#     df = pd.merge(dates, df, how='inner', left_on=[0], right_on=['Date'])
-#     df = df[df['Division']==input_value]
-#     # animations = {
-#     #     px.line(
-#     #         df, x='Date', y='run_diff',
-#     #         animation_frame='Date',
-#     #         animation_group='Tm', color='Tm',
-#     #         hover_name='Tm'
-#     #         )
-#     #     }
-#     # return animations
-#     fig = px.line(
-#         df,
-#         y="run_diff",
-#         x="Date",
-#         title='Run Differential',
-#         color='Tm',
-#         color_discrete_sequence=["orange", "red", "green", "teal", 'blue'],
-#         hover_name='Tm',
-#         )
-#     fig.update_yaxes(title='Runs', visible=True, showticklabels=True)
-#     fig.update_xaxes(title=None)
-#     fig.update_layout(
-#     plot_bgcolor='white'
-#     )
-#     return fig
-
-@app.callback(
+@callback(
     Output("table", "data"), 
     Input("status-dropdown", component_property='value')
 )
@@ -462,6 +417,9 @@ def display_table(input_value):
     dff = standings[standings['Division'].str.contains(input_value)]
     return dff.to_dict("records")
 
-
-if __name__ == '__main__':
-    app.run_server(debug=True)
+# @callback(
+#     Output('analytics-output', 'children'),
+#     Input('analytics-input', 'value')
+# )
+# def update_city_selected(input_value):
+#     return f'You selected: {input_value}'
